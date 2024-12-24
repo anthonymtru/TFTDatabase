@@ -10,16 +10,16 @@ if not os.path.exists(excel_file):
     workbook = openpyxl.Workbook()
     sheet = workbook.active
     sheet.title = "User Data"
-    sheet.append(["Placement", "Composition", "Main Unit", "Augment 1", "Augment 2", "Augment 3"])  # Add headers
+    sheet.append(["Placement", "Composition", "Main Unit", "Augment 1", "Augment 2", "Augment 3", "Top 4", "Win"])  # Add headers
     workbook.save(excel_file)
 
 # Function to insert data into the Excel spreadsheet
-def insert_data(placement, composition, main_unit, aug1, aug2, aug3):
+def insert_data(placement, composition, main_unit, aug1, aug2, aug3, top4, win):
     # Load the existing workbook
     workbook = openpyxl.load_workbook(excel_file)
     sheet = workbook.active
     # Append the new data as a row
-    sheet.append([placement, composition, main_unit, aug1, aug2, aug3])
+    sheet.append([placement, composition, main_unit, aug1, aug2, aug3, top4, win])
     # Save after appending
     workbook.save(excel_file)
     print("Data saved to Excel successfully!")
@@ -56,9 +56,17 @@ def main():
     aug1 = input('First Augment: ')
     aug2 = input('Second Augment: ')
     aug3 = input('Third Augment: ')
-
+    
+    # Checks for top 4 and first rates
+    top4 = 0
+    win = 0
+    if placement < 5:
+        top4 = 1
+    if placement == 1:
+        win = 1
+        
     # Insert data into the Excel spreadsheet
-    insert_data(placement, composition, main_unit, aug1, aug2, aug3)
+    insert_data(placement, composition, main_unit, aug1, aug2, aug3, top4, win)
 
 # Gets valid placement input    
 def valid_placement():
