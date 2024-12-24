@@ -10,16 +10,16 @@ if not os.path.exists(excel_file):
     workbook = openpyxl.Workbook()
     sheet = workbook.active
     sheet.title = "User Data"
-    sheet.append(["Name", "Age", "Email"])  # Add headers
+    sheet.append(["Placement", "Composition", "Main Unit", "Augment 1", "Augment 2", "Augment 3"])  # Add headers
     workbook.save(excel_file)
 
 # Function to insert data into the Excel spreadsheet
-def insert_data(name, age, email):
+def insert_data(placement, composition, main_unit, aug1, aug2, aug3):
     # Load the existing workbook
     workbook = openpyxl.load_workbook(excel_file)
     sheet = workbook.active
     # Append the new data as a row
-    sheet.append([name, age, email])
+    sheet.append([placement, composition, main_unit, aug1, aug2, aug3])
     # Save after appending
     workbook.save(excel_file)
     print("Data saved to Excel successfully!")
@@ -49,14 +49,29 @@ def delete_latest_row():
 
 # Main loop to get user input
 def main():
-    print("Enter user details to store in the Excel spreadsheet.")
-    name = input("Name: ")
-    age = input("Age: ")
-    email = input("Email: ")
+    print('Enter your game details: ')
+    placement = valid_placement()
+    composition = input('Composition (trait# + trait): ')
+    main_unit = input('Main Unit + Star LVL: ')
+    aug1 = input('First Augment: ')
+    aug2 = input('Second Augment: ')
+    aug3 = input('Third Augment: ')
 
     # Insert data into the Excel spreadsheet
-    insert_data(name, age, email)
+    insert_data(placement, composition, main_unit, aug1, aug2, aug3)
 
+# Gets valid placement input    
+def valid_placement():
+    while True:
+        try:
+            placement_input = int(input('Placement: '))
+            if placement_input < 0 or placement_input > 8:
+                print('Placements cannot be negative or greater than 8')
+            else:
+                return placement_input
+        except ValueError:
+            print('Invalid input, please try again.')
+            
 # Run the main function
 if __name__ == '__main__':
     while True:
