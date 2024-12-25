@@ -73,13 +73,13 @@ def valid_placement():
     while True:
         try:
             placement_input = int(input('Placement: '))
-            if placement_input < 0 or placement_input > 8:
-                print('Placements cannot be negative or greater than 8')
+            if placement_input <= 0 or placement_input > 8:
+                print('Placements cannot be negative, 0, or greater than 8')
             else:
                 return placement_input
         except ValueError:
             print('Invalid input, please try again.')
-            
+                   
 # Run the main function
 if __name__ == '__main__':
     while True:
